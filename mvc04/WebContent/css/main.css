@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+/*==========================
+   #14-1. main.css
+   - 메인 스타일 구성.
+==========================*/
+
+body, p, div, span, input, table, th, td, select, textarea
+{
+	font-size: 14px;
+	font-family: 맑은 고딕;
+	color: #343;
+	
+	
+}
+
+a
+{
+	text-decoration: none;
+	color: gray;
+}
+
+.table
+{
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table th, .table td
+{
+	border: 1px solid gray;
+	border-left: 0px;
+	border-right: 0px;
+	
+	paddin: 3px;
+	line-height: 150%;
+	text-align: center;
+}
+
+.table th
+{
+	font-weight: bold;
+	background-color: #eee;
+}
+
+.table td
+{
+	font-size: 12pt;
+}
+
+.btn
+{
+	cursor: pointer;
+	font-family: 맑은 고딕;
+	font-weight: bold;
+}
+
+.btn:hover
+{
+	cursor: pointer;
+	font-family: 맑은 고딕;
+	font-weight: bold;
+	color: orange;
+}
