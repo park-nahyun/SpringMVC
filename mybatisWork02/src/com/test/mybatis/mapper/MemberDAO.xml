@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.test.mybatis.IMemberDAO"> <!-- 부모 노릇을 할 인터페이스 -->
+	<!-- implements IMemberDAO 한 걸로 이해하자 -->
+	<!-- 내가 MemberDAO인데.. I멤디에 있는 걸 다 만들어놔야.. 멤디로 활동 가능.. -->
+	<!-- list() -->
+	<select id="list" resultType="com.test.mybatis.MemberDTO">
+		SELECT MID, NAME, TELEPHONE
+		FROM TBL_MEMBERLIST
+		ORDER
+		BY MID
+	</select>
+
+	<!-- count() -->
+	<select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNT
+		FROM TBL_MEMBERLIST
+	</select>
+
+	<insert id="add">	<!-- 메소드에 의존적이지 않음. 그래서 resultType 안 써줘도 됨(굳이 출력 안하니까) -->
+		INSERT INTO TBL_MEMBERLIST(MID, NAME, TELEPHONE)	<!-- add 메소드 호출하면서 memberDTO 넘겨줘야 함-->
+		VALUES(MEMBERLISTSEQ.NEXTVAL, #{name}, #{telephone})
+	</insert>
+
+	<delete id="remove">
+		DELETE
+		FROM TBL_MEMBERLIST
+		WHERE MID = #{mid}
+	</delete>
+
+   <update id="modify">
+      UPDATE TBL_MEMBERLIST
+      SET NAME = #{name}, TELEPHONE = #{telephone }
+      WHERE MID = #{mid}
+   </update>
+
+	
+	<!-- 쿼리문 id = "메소드명" -->
+</mapper>
