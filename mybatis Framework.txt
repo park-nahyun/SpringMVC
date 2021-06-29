@@ -1,0 +1,242 @@
+■■■ 마이바티스 (mybatis) framework ■■■
+
+※ ORM(Object RElational Mapping : 객체 관계 매핑)
+   ORM 은 데이터베이스의 테이브드을 객체화 하여 접근할 수 있으며,
+   PreparedStatement 의 파라미터와 ResultSet 의 값들을
+   자바빈과 객체화가 쉬운 매핑을 시켜주어
+   자바 코드의 감소에 동움을 주는 것으로
+   오픈 소스로는 mybatis, Hibernate 등이 있다
+
+※ SQL Mapper
+   - 자바 객체를 실제 SQL 문장에 매핑 (자바 코드에서 SQL 관련 부분을 제거)
+   - SQL 문장이 자동으로 생성되는 것이 아니라 개발자가 기술해준다
+   - 매핑 자체는 데이터베이스의 엔티티와 관계에 독립적이다
+     (mapping 자체가 SQL 문에 국한)
+   - 실제적으로 모든 임베디드 SQL 시스템은 모든 SQL Mapper 로 간주 가능
+   - 마이바티스 (mybatis) SQL Map 의 경우
+     XML에 임베디드 된 SQL (자바 코드의 SQL 을 XML 파일로 분리)
+
+○ 마이바티스 (mybatis) 개요
+   mybatis 는 persistence (영속적인, 소멸되지 않고 오래도록 지속되는 )계층의
+   프레임워크로 다른 객체 관계 매핑 프레임워크들과는 달리
+   정형화된 테이블 구조에 의존하지 않고
+   SQL 구문의 실행 결과를 객체에 매핑하는 방식으로
+   테이블 구조가 복잡해지고 정규화 되어 있지 않더라도 테이블을 변경할 필요 없이
+   기존 개발 방법에서 사용한 SQL을 그대로 사용할 수가 있으며,
+   SQL 에 적용한 각각의 튜닝 항목들도 모두 그대로 유지된다
+
+   mybatis 프로젝트는 mybatis SQL Map 과 mybatis DAO 컴포넌트로 구성되어 있다
+   이 중 , mybatis SQL Map 은 SQL 문 관리에 초점을 맞추고 있다
+   mybatis DAO 컴포넌트는 hibernate 와 mybatis SQL Map 을 함께 사용할 겨우
+   트랜잭션 통합과 같은 저장 매커니즘에 포점을 맞추고 있다
+
+   mybatis Data Mapper 프레임워크는 관계형 데이터베이스에 접근할 때
+   필요한 자바 코드를 현저하게 줄일 수 있는데,
+   간단한 XML 서술자를 사용해서 편리하게 자바 빈즈를 SQL Statement 에 매핑시킨다
+   간단함 (Simplicity) 이란 다른 프레임 워크와 객체 관계 매핑 도구와 비교하여
+   mybatis 의 가장 큰 장점이다
+   mybatis Data Mapper 를 사용하기 위해서 자바빈즈와 XML 그리고 SQL 에 대한
+   선수지식이 필요하며 Data Mapper 를 사용하면
+   실제 SQL 문의 모든 기능을 사용할 수 있다
+
+   객체 관계형 데이터베이스의 관계 매핑을 설정하면
+   SQL문을 자동으로 생성해주는 hibernate 에 비해 SQL문 자동 생성 기능이 없는
+   mybatis 의 SQL Mapper 는 진정한 의미의 ORM 이 아니다 라는 분위기도 있었지만
+   관계형 데이터베이스와 통신할 수 있는 유일한 매개체인 SQL문과 객체를
+   매핑시켜준다는 의미에서 SQL Mapper 또한 ORM 문으로 다루고 있다
+
+
+○ 마이바티스 (mybatis) 의 특징
+
+   - 프레임워크 (틀, 환경, 약속)
+     ·mybatis 는 JDBC 프레임워크다
+     ·개발자는 SQL을 작성하기로 약속하고,
+       마이바티스는 JDBC를 사용해서 실행하기로 약속한다
+
+   - 간단함
+     ·간단한 퍼시스턴스 프레임워크
+     ·JDBC를 사용할 때의 try / catch / finally 구문을 사용할 필요가 없다
+
+   - 생산성
+     ·JDBC 와 비교했을 때 62% 정도 줄어드는 코드와 간단한 설정
+ 
+   - 성능
+     ·구조적 강점 (데이터 접근 속도를 높여주는 join 매핑)
+     ·여러가지 방식의 데이터 가져오기 전략 (가져오기 미루기, SQL 줄이기 기법 등)
+
+   - 관심사의 분리   --- AOP에서의 관심사와 동일
+     ·설계를 향상 (차후 유지보수성을 위해...)
+     ·리소스를 관리하여 계층화를 지원 (Connection, PreparedStatement, ResultSet)
+
+   - SQL 문이 애플리케이션 소스 코드로부터 완전히 분리
+ 
+   - 작업의 분배 : 팀을 세분화하여 업무 구분을 명확히 하는 것을 도움
+
+   - 이식성 : 어떤 프로그래밍 언어로도 구현 가능 (JAVA, C,#, RUBY 등)
+ 
+   - 오픈소스 : 무료 + 커뮤니티
+
+   - ORM 은 데이터베이스 객체를 자바 객체로 매핑ㅇ함으로써
+     객체 간의 관계를 바탕으로 SQL을 자동으로 생성해주지만,
+     마이바티스는 SQL 을 작성 및 명시해주어야 한다
+
+   - 스프링과 같은 외부 트랜잭션 관리자를 사용할 수도 있다
+
+   - 스프링 연동 모듈을 제공하기 때문에 스프링과 연동할 수도 있다
+
+
+
+○ 마이바티스 (mybatis) 의 작동 원리
+
+   Data Mapper 는 자바 빈즈, Map 구현, 원시 래퍼 타입 (String, Integer ...), 
+					-- 사용자 정의가 아니라 자바에서 원래 제공하는 순수한 자료들을 다루는..?
+   그리고 SQL 문을 위해 XML 문서를 매핑하기 위한 XML 서술자를 사용하는
+   간단한 프레임워크를 제공한다
+
+   1) 파라미터 (자바 빈즈, Map 또는 원시 래퍼) 로써 객체를 제공한다
+      파라미터 객체는 update 문 내부에 입력 값을 세팅하기 위해 사용되거나
+      쿼리문의 where 절을 세팅하기 ㅇ위해 사용된다
+
+   2) 매핑된 statment 를 실행한다
+      Data Mapper 프레임워크는 PrparedStatement 인스턴스를 생성하고
+      제공된 파라미터 객체를 사용해서 파라미터를 세팅한다
+      그리고 statement 를 실행하고, ResultSet 으로부터 결과 객체를 생성한다
+
+   3) update의 경우에 영향을 미친 rows 의 숫자를 반환한다
+      조회문일 경우에 한 개 (single) 의 객체 또는 컬렉션 객체를 반환한다
+      파라미터처럼 결과 객체는 자바 빈즈, Map, 원시 래퍼, XML 이 될 수 있다
+
+
+○ 마이바티스(mybatis) 의 작동 흐름
+
+   - 데이터 처리를 위해 DAO는 mybatis 에 제공하는 객체의 메소드를 호출한다
+   - mybatis 는 SQL 문이 저장된 매퍼 파일에서 데이터 처리에 필요한 SQL 문을 찾는다
+   - mybatis 는 매퍼 파일에서 찾은 SQL 을 서버로 보내고자 JDBC 드라이버를 사용한다
+   - JDBC 드라이버는 SQL 문을 데이터베이스 서버로 전송한다
+   - mybatis 는 select문의 실행 결과를 값 객체에 담아서 반환한다
+     (insert, update, delete 문인 경우 입력, 변경, 삭제된 레코드의 갯수를 반환한다)
+
+○ 마이바티스 (mybatis) 관련 사이트
+
+   - ibatis 이전 홈페잉지
+     http://ibatis.apache.org/
+
+   - mybatis 새 홈페이지
+     http://www.mybatis.org/
+
+   - 다운로드
+     ·mybatis
+       http://blog.mybatis.org/p/products/html
+     ·spring 연동
+       http://github.com/mybatis/spring/releases/
+
+   - 도움말
+     http://mybatis.github.io/mybatis-3/ko/getting-started.html
+
+   - API
+     http://ibatis.apache.org/docs/java/dev/
+
+
+※ 참고
+
+   - 2.3.0.677 버전부터는 jar 파일들 (/lib 디렉터리 내) 이
+     ibatis-2.3.0.677.jar 하나로 통합되었다
+   - ibatis-common-2.jar
+     : SQL Maps 와 DAO 프레임워크 모두가 사용하는 공통 컴포넌트 포함
+   - ibatis-sqlmap-2.jar
+     : SQL Maps 프레임워크의 컴포넌트들을 포함하고 있는 파일
+   - ibatis-dao-2.jqr
+     : DAO 프레임워크 컴포넌트들을 포함하고 있는 파일
+    
+ 
+
+○ 주요 클래스 및 인터페이스
+
+   - SqlSessionFactoryBuilder 
+     ·SqlSEssionFactory 를 만들기 위해 한 번만 사용하면 되기 때문에
+       계속 이 클래스의 인스턴스를 유지할 필요는 없다
+
+   - SqlSessionFactory  ... SqlSession을 찍어내는 공장
+     ·SqlSessionFactory 객체가 mybatis 의 전반적인 정보를 가지고 제어한다
+     ·SqlSessionFactory 객체를 생성하기 위해 SqlSessionFactoryBuilder 객체를
+       먼저 생성한다
+     ·SqlSessionFactory 객체는 SqlSessionFactoryBuilder 의 build 메소드로 생성한다
+     ·SqlSessionFactory 객체가 mybatis 의 전반적인 정보를 갖는 특성으로 인해
+       이 객체는 애플리케이션 내에서 한 개만 생성되어야 한다
+
+   - SqlSessionFactory 에서 SqlSession 객체 생성
+     ·SqlSessionFactory 의 이름에서 알 수 있듯이 SqlSession 인스턴스를 만들 수 있다
+       SqlSession 은 데이터베이스에 대해 SQL 명령어를 실행하기 위해
+       필요한 모든 메소드를 가지고 있다
+       그래서 SqlSession 인스턴스를 통해 직접 SQL 구문을 실행할 수 있다
+
+     ex)
+     Reader reader = Resource.getResourceAsReader("mybatis/mybatis-config.xml");
+     SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(reader);
+     SqlSEssion session = factory.openSession();
+
+   - SqlSession
+     각각의 스레드는 자체적으로 SqlSession 인스턴스를 가져야 한다
+     SqlSession 인스턴스는 각 요청을 받은 쿼리문을 실행하는 객체이다
+     따라서 SqlSession 인스턴스는 공유되지 않고
+     thread safety 하게 만들어지지도 않았다
+     (여러스레드가 접근해서 사용해도 정보가 어긋나지 않도록 만들어지는 것)
+     그렇기 때문에 이 인스턴스를 공유해서 사용하지 않는다
+     예를 들어, 어떤 클래스 안의 static 변수나 서블릿의 HttpSession과 같은
+     관리 범주 안에 저장해서도 안되는 것이다
+     만약, 사용해야 할 경우에는 Http 요청을 받을 때마다 만들고,
+     응답을 리턴할 때마다 SqlSession 을 닫아야 (반납해야) 한다
+     SqlSession이 닫히지 않으면 해당 인스턴스 리소스가 계속 유지되므로
+     꼭 닫아야 한다
+    
+     ex)
+     ...
+     SqlSession session = SqlSessionFactory.openSession();
+     try
+     {
+         ...
+     }
+     finally
+     {
+   session.close();   // ◀◀◀ 
+     }·
+
+   - Mapper 인스턴스
+     Mapper 는 SQL 구문과 객체를 설정해놓은대로 바인딩하기 위한 인터페이스이다
+     Mapper 인터페이스의 인스턴스는 SqlSession 에서 생성한다
+     그래서 Mapper 인스턴스의 가장 좋은 스코프는 SqlSession 과 동일하다
+     사용할 메소드가 호출이 되면 생성되고 종료되기 때문에
+     명시적으로 닫을 필요는 없다
+
+     ex)
+     ...
+     SqlSession session = SqlSessionFactory.openSession();
+     try
+     {
+          BlogMapper mapper = session.getMapper(BlogMapper.class);
+     }
+     finally
+     {
+          session.close();
+     }
+
+   - Mapper XML 파일
+     mybatis 의 가장 큰 장점은 매핑된 구문이며,
+     SQL Map XML 파일은 상대적으로 간단하다
+     그리고 동일한 기능의 JDBC 코드와 비교하면 다량의 코드가 감소하기도 한다
+     즉, mybatis 는 SQL 을 작성하는데 집중하도록 만들어졌따
+
+     ※ Sql Map XML 파일은 첫 번째 (first class) 요소만을 가진다
+
+     ·cache : 해당 명명 공간을 위한 캐시 설정
+     ·cache-ref : 다른 명명 공간의 캐시 설정에 대한 참조
+     ·resultMap : 데이터베이스 결과 데이터를 객체에 로드하는 방법을 정의하는 요소
+     ·parameterMap : 권장하지 않음
+                 과거에는 파라미터를 매핑하기 위해 사용했으나 현재는 사용하지 않음
+     ·sql : 다른 구문에서 재사용하기 위한 SQL 조각
+     ·insert : 매핑된 insert 구문
+     ·update : 매핑된 update 구문
+     ·delete : 매핑된 delete 구문
+     ·select : 매핑된 select 구문
+
+
