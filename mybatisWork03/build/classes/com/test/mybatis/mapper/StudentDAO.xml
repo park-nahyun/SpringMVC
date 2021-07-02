@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ○ mapper 앨리먼트의 『namespace="패키지경로가 포함된 인터페이스"』 -->
+<!--    - 인터페이스 내부에 메소드가 선언되어 있어야 한다. -->
+<!--    - 선언된 메소드의 이름(메소드명)과 『id="식별자"』가 일치해야 한다. -->
+<mapper namespace="com.test.mybatis.IStudentDAO">
+
+	<!-- ○ 구성해야 할 쿼리문 → 조회 → select 엘리먼트 구성 -->
+	
+	<!-- ○ id="식별자" 속성 추가 -->
+	<!--    - 인터페이스에 선언된 메소드의 이름과 일치해야 하며, -->
+	<!--      호출 메소드명 역할을 수행하게 된다. -->
+	
+	<!-- ○ resultType="패키지 경로가 포함된 자료형 클래스" 또는 "원시 래퍼 타입" -->
+	<!--    - String: java.lang.String -->
+	<!--    - byte: java.lang.Byte -->
+	<!--    - long: java.lang.Long -->
+	<!--    - short: java.lang.Short -->
+	<!--    - int: java.lang.Integer -->
+	<!--    - Integer: java.lang.Integer -->
+	<!--    - double: java.lang.Double -->
+	<!--    - float: java.lang.Float -->
+	<!--    - boolean: java.lang.Boolean -->
+	<!--    - decimal: java.Math.BigDecimal -->
+	<!--    - Object: java.lang.Object -->
+	<!--    - map: java.util.Map -->
+	<!--    - hashmap: java.util.HashMap -->
+	<!--    - list: java.util.List -->
+	<!--    - arraylist: java.util.ArrayList -->
+	<!--    - collection: java.util.Collection -->
+	<!--    - iterator: java.util.Iterator -->
+	
+	<!-- ○ select 쿼리 내부에 있는 컬럼의 이름 정보가 -->
+	<!--    자료형 클래스(DTO) 멤버 변수(속성)와 일치하는 경우 -->
+	<!--    자동으로 매핑이 이루어진다. -->
+	
+	<select id="list" resultType="com.test.mybatis.StudentDTO">
+		SELECT SID, NAME, TEL
+		FROM STUDENTVIEW
+		ORDER BY SID
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer">
+		SELECT COUNT(*) AS COUNT
+		FROM TBL_STUDENT
+	</select>
+	
+	<insert id="add">
+		INSERT INTO TBL_STUDENT(SID, NAME, TEL, SUB)
+		VALUES(STUDENTSEQ.NEXTVAL, '#{name}', '#{tel}')
+	</insert>
+	
+	<select id="search" resultType="com.test.mybatis.StudentDTO">
+		SELECT SID, NAME, TEL
+		FROM TBL_STUDENT
+		WHERE SID = #{sid}
+	</select>
+
+</mapper>

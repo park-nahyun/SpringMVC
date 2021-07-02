@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- ① 기존 코드 -->
+    <!-- ※ Annotation 표기법으로 Controller 객체를 등록한다. -->
+    <context:component-scan base-package="com.test.mybatis"/>
+	
+	
+	<!-- ③ mybatis 설정 중... dataSource 를 등록휘해 생겨나는 추가 코드 -->
+	<!--    ※ mybatis 를 사용하기 위한 환경 설정 추가 2 → SimpleDriverDataSource -->
+	<bean id="localDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@211.238.142.157:1521:xe"></property>
+		<property name="username" value="scott"></property>
+		<property name="password" value="tiger"></property>
+	</bean>
+	
+	
+	<!-- ② mybatis 등록 과정에서 생겨나는 추가 코드 -->
+	<!--    ※ mybatis 를 사용하기 위한 환경 설정 추가 1 → sqlSessionFactoryBean (Bulider 대체) -->
+	<!--    ※ 속성 구성 → dataSource / mapperLocations -->
+	<!-- ④ lacalDataSource 구성 후 마저 등록해서 완성 → dataSource -->
+	<!-- ⑤ 매퍼파일 작성 후 마저 등록해서 완성 → mapperLocations -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="localDataSource"></property>
+		<property name="mapperLocations" value="classpath:com/test/mybatis/mapper/*.xml"></property>
+	</bean>
+	
+	<!-- ⑥ sqlSession 등록 과정에서 생겨나는 추가 코드 -->
+	<!--    ※ mybatis 를 사용하기 위한 환경 설정 추가 3 → SqlSessionTamplate -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+
+</beans>
