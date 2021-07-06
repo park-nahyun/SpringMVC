@@ -1,0 +1,10 @@
+127.0.0.1 - - [26/Jun/2021:22:17:49 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:17:53 +0900] "GET /mvc04/employeelist.action HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:17:55 +0900] "GET /mvc04/loginform.action HTTP/1.1" 200 2299
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:17:55 +0900] "GET /mvc04/js/jquery-ui.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:17:55 +0900] "GET /mvc04/css/main.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:17:55 +0900] "GET /mvc04/css/menuStyle.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:18:51 +0900] "POST /mvc04/login.action HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:18:52 +0900] "POST /mvc04/login.action HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:18:52 +0900] "GET /mvc04/employeelist.action HTTP/1.1" 200 7603
+0:0:0:0:0:0:0:1 - - [26/Jun/2021:22:18:52 +0900] "GET /mvc04/employeelist.action HTTP/1.1" 200 7603
