@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+<h1>User List</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+    </tr>
+    <%-- 사용자 리스트 출력 부분 --%>
+</table>
+<div>
+    <h2>Add New User</h2>
+    <input type="text" id="userId" placeholder="User ID">
+    <input type="text" id="userName" placeholder="Username">
+    <input type="text" id="userEmail" placeholder="Email">
+    <button onclick="insertUser()">Insert</button>
+</div>
+
+<script>
+    function insertUser() {
+        var userId = document.getElementById("userId").value;
+        var userName = document.getElementById("userName").value;
+        var userEmail = document.getElementById("userEmail").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "userController", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE) {
+                if (xhr.status == 200) {
+                    alert("User inserted successfully!");
+                    location.reload(); // 페이지 새로고침
+                } else {
+                    alert("Failed to insert user.");
+                }
+            }
+        };
+        var data = "id=" + userId + "&username=" + userName + "&email=" + userEmail;
+        xhr.send(data);
+    }
+</script>
+</body>
+</html>
