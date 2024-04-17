@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!-- 데이터베이스 접속 정보 -->
-    <properties resource="jdbc.properties"/>
-
+    <properties resource="db.properties"/>
+    <typeAliases>
+        <typeAlias alias="User" type="com.arisys.entity.User"/>
+    </typeAliases>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${jdbc.driver}"/>
-                <property name="url" value="${jdbc.url}"/>
-                <property name="username" value="${jdbc.username}"/>
-                <property name="password" value="${jdbc.password}"/>
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
             </dataSource>
         </environment>
     </environments>
-
     <!-- Mapper 파일 위치 설정 -->
     <mappers>
-        <mapper resource="com/arisys/mappers/UserMapper.xml"/>
-        <!-- 다른 매퍼 파일 추가 가능 -->
+        <mapper resource="mapper/UserMapper.xml"/>
+<!--
+        <mapper class="com.arisys.dao.UserDAO"/>
+-->
     </mappers>
-</configuration>
+  </configuration>

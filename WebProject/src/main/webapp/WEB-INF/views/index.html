@@ -23,27 +23,16 @@
 </div>
 
 <script>
-    function insertUser() {
-        var userId = document.getElementById("userId").value;
-        var userName = document.getElementById("userName").value;
-        var userEmail = document.getElementById("userEmail").value;
+    // 컨트롤러에서 전달한 userList 가져오기
+    var userList = ${userList};
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "userController", true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE) {
-                if (xhr.status == 200) {
-                    alert("User inserted successfully!");
-                    location.reload(); // 페이지 새로고침
-                } else {
-                    alert("Failed to insert user.");
-                }
-            }
-        };
-        var data = "id=" + userId + "&username=" + userName + "&email=" + userEmail;
-        xhr.send(data);
-    }
+    // HTML에 userList 추가하기
+    var userListElement = document.getElementById("userList");
+    userList.forEach(function(user) {
+        var listItem = document.createElement("li");
+        listItem.textContent = user;
+        userListElement.appendChild(listItem);
+    });
 </script>
 </body>
 </html>

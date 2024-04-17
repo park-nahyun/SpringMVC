@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [05/Jul/2021:09:14:51 +0900] "GET /BootstrapWork/js/bootstrap.min.js HTTP/1.1" 404 791
+127.0.0.1 - - [05/Jul/2021:09:14:51 +0900] "GET / HTTP/1.1" 404 750
+0:0:0:0:0:0:0:1 - - [05/Jul/2021:09:14:51 +0900] "GET /BootstrapWork/css/bootstrap.css HTTP/1.1" 404 789
+0:0:0:0:0:0:0:1 - - [05/Jul/2021:09:15:04 +0900] "GET /mybatisWork03/studentlist.action HTTP/1.1" 200 6258
+0:0:0:0:0:0:0:1 - - [05/Jul/2021:09:15:04 +0900] "GET /mybatisWork03/js/bootstrap.min.js HTTP/1.1" 404 791
+0:0:0:0:0:0:0:1 - - [05/Jul/2021:09:15:04 +0900] "GET /mybatisWork03/js/bootstrap.min.js HTTP/1.1" 404 791

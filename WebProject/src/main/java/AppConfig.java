@@ -1,26 +1,31 @@
+import com.ulisesbocchio.jasyptspring31.EncryptablePropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import javax.sql.DataSource;
 
 @Configuration
-@PropertySource("classpath:jdbc.properties")
 public class AppConfig {
 
     @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(System.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(System.getProperty("jdbc.url"));
-        dataSource.setUsername(System.getProperty("jdbc.username"));
-        dataSource.setPassword(System.getProperty("jdbc.password"));
-        return dataSource;
+    public static EncryptablePropertyPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        EncryptablePropertyPlaceholderConfigurer configurer = new EncryptablePropertyPlaceholderConfigurer(encryptor());
+        configurer.setLocations(new Resource[] {
+                new ClassPathResource("db.properties")
+        });
+        return configurer;
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
+    public static PooledPBEStringEncryptor encryptor() {
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPassword("암호화키");
+        config.setAlgorithm("PBEWithMD5AndDES");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setStringOutputType("base64");
+        encryptor.setConfig(config);
+        return encryptor;
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.arisys.dao.UserDAO">
+    <sql id="userInfo">
+        id,
+        username,
+        email
+    </sql>
+
+    <insert id="insertUser" parameterType="User">
+        INSERT INTO userinfo (
+        <include refid="userInfo"/>
+        )VALUES (
+        #{id},
+        #{username},
+        #{email}
+        );
+    </insert>
+
+    <select id="selectUserDetail" parameterType="Long" resultType="User">
+        SELECT
+        <include refid="userInfo"/>
+        FROM
+        userinfo
+        WHERE
+        id = #{id};
+    </select>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE userinfo
+        SET
+            email = #{email}
+        WHERE
+            id =#{id};
+    </update>
+
+    <update id="deleteUser">
+        Delete userinfo
+        WHERE
+            id = #{id};
+    </update>
+
+    <select id="selectUserList" resultType="User">
+        SELECT * FROM userinfo;
+    </select>
+
+    <select id="selectUserToTalCount" parameterType="User" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            userinfo;
+    </select>
+</mapper>

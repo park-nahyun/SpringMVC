@@ -1,6 +1,7 @@
 package com.arisys.controller;
 
 import com.arisys.entity.User;
+import com.arisys.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -16,29 +17,13 @@ import java.util.List;
 // UserController.java
 @Controller
 public class UserController {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @RequestMapping("/")
+    @GetMapping("/")
     public String getUsers(Model model) {
-
-        List<User> users = jdbcTemplate.query(
-                "SELECT * FROM USERINFO",
-                new RowMapper<User>() {
-                    @Override
-                    public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        User user = new User();
-                        user.setId(rs.getLong("id"));
-                        user.setUsername(rs.getString("username"));
-                        user.setEmail(rs.getString("email"));
-                        return user;
-                    }
-                }
-        );
-
-
-        model.addAttribute("users", users);
-        return "users";
+        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
+        UserService userService = new UserService();
+        List<User> userList = userService.getUserList(); // 사용자 목록을 가져옵니다.
+        System.out.println(":::::::::::" + userList);
+        model.addAttribute("users", userList); // 사용자 목록을 모델에 추가합니다.
+        return "index"; // index.html 뷰를 반환합니다.
     }
 }

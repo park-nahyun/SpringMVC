@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 지금까진 이래 왔다면.. 
+	<bean name="/요청내용" class=".......... 요청을 처리할 클래스">
+		<property name=""></property>
+	</bean>
+	-->
+	
+	<!-- ※ Annotation 표기법으로 Controller 객체를 등록한다. -->
+	<!--   → Annotation 표기법으로 작성된 Controller 객체를 -->
+	<!--     스프링 컨테이너가 자동으로 알아서 스캔할 수 있도록 처리. -->
+	
+    <context:component-scan base-package="com.test.mvc"/> <!-- 이 안에 설계도 있으니까 꼼꼼히 읽어 컨테이너야~! -->
+	<!-- → 『base-package』 속성에 Controller 객체가 포함된 패키지 경로를 지정한다. -->
+	
+
+</beans>

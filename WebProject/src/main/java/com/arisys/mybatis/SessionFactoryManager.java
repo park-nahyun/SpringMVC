@@ -20,23 +20,17 @@ public class SessionFactoryManager {
 
         try {
             String resource = "mybatis-config.xml";
-            is = Resources.getUrlAsStream(resource); // 설정파일 불러오기
-
+            is = SessionFactoryManager.class.getResourceAsStream("/" + resource); // 설정파일
             SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder(); // 설정파일을 읽기 위한 객체
-
-            InputStream decryptedConfig = getDecryptedConfig(is);
-
-            factory = builder.build(decryptedConfig);
-
-        } catch (IOException e) {
-            System.out.println("IOException");
+            factory = builder.build(is);
+        } catch (Exception e) {
+            System.out.println("IOException : " + e);
         }
-
         return factory;
     }
 
 
-    public static InputStream getDecryptedConfig(InputStream inputStream) {
+    public static InputStream getDecryptedConfig(InputStream inputStream) throws IOException{
 
         String content = readInputStream(inputStream);
 
@@ -49,7 +43,7 @@ public class SessionFactoryManager {
     }
 
     // InputStream을 문자열로 변환하는 메서드
-    private static String readInputStream(InputStream inputStream) {
+    private static String readInputStream(InputStream inputStream) throws IOException {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuilder stringBuilder = new StringBuilder();

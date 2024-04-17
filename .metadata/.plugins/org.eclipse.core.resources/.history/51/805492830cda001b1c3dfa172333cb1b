@@ -1,0 +1,20 @@
+/*============================
+ * StudentController.java
+ * - 컨트롤러(사용자 정의 컨트롤러)
+ ===========================*/
+
+package com.test.mybatis;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class StudentController
+{
+	@RequestMapping(value = "/studentlist.action", method = RequestMethod.GET)
+	public String studentList(Model model)
+	{
+		
+	}
+
+}
