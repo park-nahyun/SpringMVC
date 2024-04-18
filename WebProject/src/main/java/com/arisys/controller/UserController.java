@@ -19,7 +19,6 @@ import java.util.List;
 public class UserController {
     @GetMapping("/")
     public String getUsers(Model model) {
-        System.out.println("HHHHHHHHHHHHHHHHHHHHHHHH");
         UserService userService = new UserService();
         List<User> userList = userService.getUserList(); // 사용자 목록을 가져옵니다.
         System.out.println(":::::::::::" + userList);

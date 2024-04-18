@@ -1,11 +1,10 @@
-import com.ulisesbocchio.jasyptspring31.EncryptablePropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AppConfig {
 
-    @Bean
+/*    @Bean
     public static EncryptablePropertyPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         EncryptablePropertyPlaceholderConfigurer configurer = new EncryptablePropertyPlaceholderConfigurer(encryptor());
         configurer.setLocations(new Resource[] {
@@ -27,5 +26,5 @@ public class AppConfig {
         config.setStringOutputType("base64");
         encryptor.setConfig(config);
         return encryptor;
-    }
+    }*/
 }

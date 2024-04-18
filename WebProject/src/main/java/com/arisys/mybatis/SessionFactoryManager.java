@@ -11,35 +11,36 @@ public class SessionFactoryManager {
     private static SqlSessionFactory factory;
 
     public static SqlSessionFactory getSqlSessionFactory() {
-        if (factory != null) {
-            // 페이지가 변경될때마다 설정파일을 불러오는 작업을 하지않기 위해 선언
-            return factory;
-        }
-
         InputStream is = null;
-
+        InputStream decryptedInputStream = null;
         try {
             String resource = "mybatis-config.xml";
-            is = SessionFactoryManager.class.getResourceAsStream("/" + resource); // 설정파일
-            SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder(); // 설정파일을 읽기 위한 객체
-            factory = builder.build(is);
+            is = SessionFactoryManager.class.getResourceAsStream("/" + resource); // 설정 파일
+            SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder(); // 설정 파일을 읽기 위한 객체
+            // System.out.println("readInputStream : " + readInputStream(is));
+            // is.reset();
+            decryptedInputStream = getDecryptedConfig(is);
+            factory = builder.build(decryptedInputStream);
+
         } catch (Exception e) {
             System.out.println("IOException : " + e);
         }
         return factory;
     }
 
-
-    public static InputStream getDecryptedConfig(InputStream inputStream) throws IOException{
-
-        String content = readInputStream(inputStream);
-
-        System.out.println("content : " + content);
-
-        inputStream = new ByteArrayInputStream(content.getBytes());
-
-        return inputStream;
-
+    public static InputStream getDecryptedConfig(InputStream inputStream) {
+        InputStream dis = null;
+        try {
+            String content = readInputStream(inputStream);
+            System.out.println("content : " + content);
+            dis = new ByteArrayInputStream(content.getBytes());
+            dis.reset();
+            return dis;
+        }
+        catch (Exception e) {
+            System.out.println("Exception : " + e);
+        }
+        return dis;
     }
 
     // InputStream을 문자열로 변환하는 메서드
@@ -52,7 +53,8 @@ public class SessionFactoryManager {
                 stringBuilder.append(line);
             }
             return stringBuilder.toString();
-        } catch (IOException e) {
+        } catch (Exception e) {
+            System.out.println("readInputStream");
             e.printStackTrace();
             return null;
         }
